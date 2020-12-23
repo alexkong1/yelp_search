@@ -1,10 +1,15 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
     compileSdkVersion 30
+
+    buildFeatures {
+        dataBinding true
+    }
 
     defaultConfig {
         applicationId "com.alexkong.yelp_search"
@@ -17,9 +22,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            debuggable true
+            buildConfigField "String", "API_KEY", "\"ODNfmKiTaGzNzkd_YQSfSeAn5sFEXymKyOKzm_l_G8WHF7SstFRauBSRZlwzJM70gKIATDPfHbI58wUW7HlYeC5kUVrKa9W9FAkVD0pkWtNnScMchmJIYNWtF3TiX3Yx\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "API_KEY", "\"ODNfmKiTaGzNzkd_YQSfSeAn5sFEXymKyOKzm_l_G8WHF7SstFRauBSRZlwzJM70gKIATDPfHbI58wUW7HlYeC5kUVrKa9W9FAkVD0pkWtNnScMchmJIYNWtF3TiX3Yx\""
         }
     }
     compileOptions {
@@ -37,6 +47,22 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    // Dagger 2
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger2_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+    //Rx
+    implementation "io.reactivex.rxjava2:rxjava:$rx2java_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx2android_version"
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
